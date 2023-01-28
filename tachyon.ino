@@ -1,17 +1,14 @@
-
 #include <AFMotor.h>
 #include <Servo.h>
-#include "BluetoothManager.h"
-#include "Constants.h"
 
+#include "Robot.h"
 
-
+Robot robot;
 
 void setup() {
-  bluetooth = BluetoothManager();
+  robot.init();
 }
 
 void loop() {
+  robot.loop();
 }
-
-
