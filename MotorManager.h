@@ -1,5 +1,9 @@
 #pragma once
 #include <AFMotor.h>
+/**
+  MotorManager class is used for managing the motors of the robot.
+  It uses the Adafruit Motor Shield library for controlling the motors.
+*/
 class MotorManager {
 private:
   AF_DCMotor mFrontLeft;
@@ -9,41 +13,68 @@ private:
   int mSpeed;
 
 public:
-  MotorManager() : mFrontLeft(1), mFrontRight(2), mRearLeft(3), mRearRight(4) {
+  // Initialise the Motors (AF_DCMotors)
+  MotorManager()
+    : mFrontLeft(1), mFrontRight(2), mRearLeft(3), mRearRight(4) {
     mSpeed = 255;
   }
-  void init(int motorSpeed) {
+
+  /**
+    Set the speeds of the motors to given speed
+    Must be called inside the Setup function
+    @param motorSpeed Set the Speed of the motors. Ranges from 0 to 255, 0 being stop.
+  */
+  void Init(int motorSpeed) {
     mSpeed = motorSpeed;
     mFrontLeft.setSpeed(mSpeed);
     mFrontRight.setSpeed(mSpeed);
     mRearLeft.setSpeed(mSpeed);
     mRearRight.setSpeed(mSpeed);
   }
-  void moveForward() {
+  /**
+    Move the Robot
+  */
+  void MoveForward() {
     mFrontLeft.run(FORWARD);
     mFrontRight.run(FORWARD);
     mRearLeft.run(FORWARD);
     mRearRight.run(FORWARD);
   }
-  void moveBackward() {
+
+  /**
+    Move the Robot
+  */
+  void MoveBackward() {
     mFrontLeft.run(BACKWARD);
     mFrontRight.run(BACKWARD);
     mRearLeft.run(BACKWARD);
     mRearRight.run(BACKWARD);
   }
-  void moveLeft() {
+
+  /**
+    Move the Robot
+  */
+  void MoveLeft() {
     mFrontLeft.run(BACKWARD);
     mFrontRight.run(FORWARD);
     mRearLeft.run(BACKWARD);
     mRearRight.run(FORWARD);
   }
-  void moveRight() {
+
+  /**
+    Move the Robot
+  */
+  void MoveRight() {
     mFrontLeft.run(FORWARD);
     mFrontRight.run(BACKWARD);
     mRearLeft.run(FORWARD);
     mRearRight.run(BACKWARD);
   }
-  void stop() {
+
+  /**
+    Stop the Robot
+  */
+  void Stop() {
     mFrontLeft.run(RELEASE);
     mFrontRight.run(RELEASE);
     mRearLeft.run(RELEASE);

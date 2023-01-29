@@ -6,9 +6,9 @@
 Robot robot;
 
 void setup() {
-  robot.init();
+  robot.Init();
 }
 
 void loop() {
-  robot.loop();
+  robot.Update();
 }

@@ -1,6 +1,9 @@
 #pragma once
 #include "Constants.h"
 
+/**
+  Manages the Servo by keeping track of the current angle.
+*/
 class ServoManager {
 public:
   const int ATTACHED_PIN = 10;
@@ -10,12 +13,18 @@ private:
   int mCurrentDirection = 0;
 
 public:
-  void init() {
+  // Initialise the servo. Must be called inside the Setup function
+  void Init() {
     mServo.attach(ATTACHED_PIN);
   }
 
-public:
-  void pointToDirection(int desiredDirection) {
+
+  /**
+    Turns the servo to make it point at a direction
+    @param desiredDirection - The desired deriction to make the servo rotate at, 
+    irrespective of the current rotation.
+  */
+  void RotateTowards(int desiredDirection) {
     int directionDifference = desiredDirection - mCurrentDirection;
     if (directionDifference > 180) {
       directionDifference -= 360;

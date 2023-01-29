@@ -5,6 +5,7 @@
 #include "DectectionManager.h"
 #include "MotorManager.h"
 
+// Robot class Manages all the Managers and Controls the Logic of the Vehicle.
 
 class Robot {
 private:
@@ -12,103 +13,99 @@ private:
   ServoManager mServoManager;
   DectectionManager mDetectionManager;
   MotorManager mMotorManager;
-
-  char currentState = STATE_FRONT;
+  char mCurrentState = STATE_FRONT;
 
 public:
-  init() {
-    mBluetoothManager.init();
-    mServoManager.init();
-    mDetectionManager.init();
-    mMotorManager.init(255);
-
-    pinMode(13, OUTPUT);
+  // Initialise all Managers. Must be called in `Setup` function
+  void Init() {
+    mBluetoothManager.Init();
+    mServoManager.Init();
+    mDetectionManager.Init();
+    mMotorManager.Init(255);
   }
 
-  void loop() {
+  // Poll and Handle Inputs. Must be called inside `Loop` function.
+  void Update() {
     pollInputs();
     handleInputs();
   }
 
+private:
   void pollInputs() {
-    char character = mBluetoothManager.next();
-    if (character != STATE_NULL) currentState = character;
+    char character = mBluetoothManager.Next();
+    if (character != STATE_NULL) mCurrentState = character;
   }
 
   void handleInputs() {
-    switch (currentState) {
+    switch (mCurrentState) {
       case STATE_FRONT:
-        mHandleForward();
+        handleForward();
         break;
       case STATE_BACK:
-        mHandleBackward();
+        handleBackward();
         break;
       case STATE_LEFT:
-        mHandleLeft();
+        handleLeft();
         break;
       case STATE_RIGHT:
-        mHandleRight();
+        handleRight();
         break;
-      default:
-        mHandleStop();
+      default: // i.e. NILL or STOP
+        handleStop();
         break;
     }
   }
 
-private:
   bool isSafeToMove(char direction) {
     int angle = 0;
     if (direction == STATE_FRONT) angle = 90;
     else if (direction == STATE_LEFT) angle = 180;
     else if (direction == STATE_RIGHT) angle = 0;
-    mServoManager.pointToDirection(angle);
-    // delay(20);
+    mServoManager.RotateTowards(angle);
+    delay(angle * 2);
 
-    int distance = mDetectionManager.getDistance();
+    int distance = mDetectionManager.GetDistance();
     if (direction == STATE_FRONT && distance > SAFE_DISTANCE_FRONT) return true;
-    else if (direction == STATE_BACK) return true;
     else if (direction == STATE_LEFT && distance > SAFE_DISTANCE_LEFT) return true;
     else if (direction == STATE_RIGHT && distance > SAFE_DISTANCE_RIGHT) return true;
+    else if (direction == STATE_BACK) return true;
     else return false;
   }
 
-  void mHandleForward() {
+  void handleForward() {
     if (isSafeToMove(STATE_FRONT)) {
-      mMotorManager.moveForward();
-      // Serial.println("FWD");
+      mMotorManager.MoveForward();
     } else {
-      currentState = STATE_STOP;
+      mCurrentState = STATE_STOP;
     }
   }
 
-  void mHandleBackward() {
-    mMotorManager.moveBackward();
+  void handleBackward() {
+    mMotorManager.MoveBackward();
   }
 
-  void mHandleLeft() {
+  void handleLeft() {
     if (isSafeToMove(STATE_LEFT)) {
-      mMotorManager.moveLeft();
-      // Serial.println("LFT");
+      mMotorManager.MoveLeft();
       delay(1500);
-      // mMotorManager.moveFWD();
-      currentState = STATE_FRONT;
+      mCurrentState = STATE_FRONT;
     } else {
-      currentState = STATE_STOP;
+      mCurrentState = STATE_STOP;
     }
   }
-  void mHandleRight() {
+  void handleRight() {
     if (isSafeToMove(STATE_RIGHT)) {
       // Serial.println("RIG");
-      mMotorManager.moveRight();
+      mMotorManager.MoveRight();
       delay(1500);
       // mMotorManager.moveFWD();
-      currentState = STATE_FRONT;
+      mCurrentState = STATE_FRONT;
     } else {
-      currentState = STATE_STOP;
+      mCurrentState = STATE_STOP;
     }
   }
 
-  void mHandleStop() {
-    mMotorManager.stop();
+  void handleStop() {
+    mMotorManager.Stop();
   }
 };
