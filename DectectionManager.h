@@ -37,7 +37,7 @@ public:
     digitalWrite(TRIGGER_PIN, LOW);
 
     long duration = pulseIn(ECHO_PIN, HIGH);
-    float distance = (duration / 2) / 34.3;
+    float distance = (duration / 2) / 29.3;
     Serial.println(distance);
     return distance;
   }

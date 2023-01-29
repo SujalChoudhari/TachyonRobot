@@ -5,7 +5,7 @@
 class BluetoothManager {
 public:
   // Constant variable to set the communication baud rate
-  const int RATE_OF_COMMUNICATION = 9600;
+  const int COMMUNICATION_RATE = 9600;
 
 public:
   /**
@@ -13,7 +13,7 @@ public:
    * Must be called inside the Setup function
    */
   void Init() {
-    Serial.begin(RATE_OF_COMMUNICATION);
+    Serial.begin(COMMUNICATION_RATE);
   }
 
   /**

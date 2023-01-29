@@ -13,7 +13,7 @@ private:
   ServoManager mServoManager;
   DectectionManager mDetectionManager;
   MotorManager mMotorManager;
-  char mCurrentState = STATE_FRONT;
+  char mCurrentState = STATE_LEFT;
 
 public:
   // Initialise all Managers. Must be called in `Setup` function
@@ -107,5 +107,6 @@ private:
 
   void handleStop() {
     mMotorManager.Stop();
+    // mDetectionManager.GetDistance();
   }
 };
