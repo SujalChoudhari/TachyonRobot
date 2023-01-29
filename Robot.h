@@ -50,6 +50,7 @@ public:
         mHandleRight();
         break;
       default:
+        mHandleStop();
         break;
     }
   }
@@ -73,26 +74,21 @@ private:
 
   void mHandleForward() {
     if (isSafeToMove(STATE_FRONT)) {
-      mMotorManager.moveFWD();
-    Serial.println("FWD");
+      mMotorManager.moveForward();
+      // Serial.println("FWD");
     } else {
       currentState = STATE_STOP;
     }
   }
 
   void mHandleBackward() {
-    if (isSafeToMove(STATE_BACK)) {
-      mMotorManager.moveFWD();
-      Serial.println("BCK");
-    } else {
-      currentState = STATE_STOP;
-    }
+    mMotorManager.moveBackward();
   }
 
   void mHandleLeft() {
     if (isSafeToMove(STATE_LEFT)) {
       mMotorManager.moveLeft();
-      Serial.println("LFT");
+      // Serial.println("LFT");
       delay(1500);
       // mMotorManager.moveFWD();
       currentState = STATE_FRONT;
@@ -102,7 +98,7 @@ private:
   }
   void mHandleRight() {
     if (isSafeToMove(STATE_RIGHT)) {
-      Serial.println("RIG");
+      // Serial.println("RIG");
       mMotorManager.moveRight();
       delay(1500);
       // mMotorManager.moveFWD();
@@ -110,5 +106,9 @@ private:
     } else {
       currentState = STATE_STOP;
     }
+  }
+
+  void mHandleStop() {
+    mMotorManager.stop();
   }
 };

@@ -19,13 +19,13 @@ public:
     mRearLeft.setSpeed(mSpeed);
     mRearRight.setSpeed(mSpeed);
   }
-  void moveFWD() {
+  void moveForward() {
     mFrontLeft.run(FORWARD);
     mFrontRight.run(FORWARD);
     mRearLeft.run(FORWARD);
     mRearRight.run(FORWARD);
   }
-  void moveBWD() {
+  void moveBackward() {
     mFrontLeft.run(BACKWARD);
     mFrontRight.run(BACKWARD);
     mRearLeft.run(BACKWARD);

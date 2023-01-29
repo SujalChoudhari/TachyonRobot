@@ -21,6 +21,7 @@ public:
 
     long duration = pulseIn(ECHO_PIN, HIGH);
     float distance = (duration / 2) / 29.1;
+    Serial.println(distance);
     return distance;
   }
 
