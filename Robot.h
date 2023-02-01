@@ -13,7 +13,7 @@ private:
   ServoManager mServoManager;
   DectectionManager mDetectionManager;
   MotorManager mMotorManager;
-  char mCurrentState = STATE_LEFT;
+  char mCurrentState = STATE_STOP;
 
 public:
   // Initialise all Managers. Must be called in `Setup` function
@@ -62,7 +62,7 @@ private:
     else if (direction == STATE_LEFT) angle = 180;
     else if (direction == STATE_RIGHT) angle = 0;
     mServoManager.RotateTowards(angle);
-    delay(angle * 2);
+    delay(angle * 5);
 
     int distance = mDetectionManager.GetDistance();
     if (direction == STATE_FRONT && distance > SAFE_DISTANCE_FRONT) return true;
@@ -87,7 +87,7 @@ private:
   void handleLeft() {
     if (isSafeToMove(STATE_LEFT)) {
       mMotorManager.MoveLeft();
-      delay(1500);
+      delay(2000);
       mCurrentState = STATE_FRONT;
     } else {
       mCurrentState = STATE_STOP;
@@ -95,10 +95,8 @@ private:
   }
   void handleRight() {
     if (isSafeToMove(STATE_RIGHT)) {
-      // Serial.println("RIG");
       mMotorManager.MoveRight();
-      delay(1500);
-      // mMotorManager.moveFWD();
+      delay(2000);
       mCurrentState = STATE_FRONT;
     } else {
       mCurrentState = STATE_STOP;
@@ -107,6 +105,6 @@ private:
 
   void handleStop() {
     mMotorManager.Stop();
-    // mDetectionManager.GetDistance();
+    mServoManager.
   }
 };

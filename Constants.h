@@ -2,9 +2,9 @@
 /**
 * Safe distance for the front, right and left side of the robot
 */
-#define SAFE_DISTANCE_FRONT 15
-#define SAFE_DISTANCE_RIGHT 20
-#define SAFE_DISTANCE_LEFT 20
+#define SAFE_DISTANCE_FRONT 10
+#define SAFE_DISTANCE_RIGHT 15
+#define SAFE_DISTANCE_LEFT 15
 
 /**
 * Motor pinout for the robot
