@@ -6,7 +6,7 @@
 */
 class ServoManager {
 public:
-  const int ATTACHED_PIN = 10;
+  const int ATTACHED_PIN = SERVO_PIN_NUMBER;
 
 private:
   Servo mServo;

@@ -5,7 +5,7 @@
 class BluetoothManager {
 public:
   // Constant variable to set the communication baud rate
-  const int COMMUNICATION_RATE = 9600;
+  const int COMMUNICATION_RATE = COMMUNICATION_BAUD_RATE;
 
 public:
   /**

@@ -50,19 +50,25 @@ private:
       case STATE_RIGHT:
         handleRight();
         break;
-      default: // i.e. NILL or STOP
+      default: // i.e. NULL or STOP
         handleStop();
         break;
     }
   }
 
+  /**
+    Check if it is save to move in a specific direction.
+    This rotates the Servo and gets the distance. Depending on the SAFE distances in Constants.h,
+    It returns true or false.
+  */
   bool isSafeToMove(char direction) {
     int angle = 0;
-    if (direction == STATE_FRONT) angle = 90;
-    else if (direction == STATE_LEFT) angle = 180;
-    else if (direction == STATE_RIGHT) angle = 0;
+    if (direction == STATE_FRONT) angle = RELATIVE_FRONT_ANGLE;
+    else if (direction == STATE_LEFT) angle = RELATIVE_LEFT_ANGLE;
+    else if (direction == STATE_RIGHT) angle = RELATIVE_RIGHT_ANGLE;
     mServoManager.RotateTowards(angle);
-    delay(angle * 5);
+    
+    if(angle > 70) delay(500);
 
     int distance = mDetectionManager.GetDistance();
     if (direction == STATE_FRONT && distance > SAFE_DISTANCE_FRONT) return true;
@@ -105,6 +111,5 @@ private:
 
   void handleStop() {
     mMotorManager.Stop();
-    mServoManager.
   }
 };

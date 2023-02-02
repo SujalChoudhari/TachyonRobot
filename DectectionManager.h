@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Constants.h"
 /**
 * Class for managing distance detection using HC-SR04 ultrasonic sensor
 */
@@ -8,11 +8,11 @@ public:
   /**
   * Pinout for the trigger pin of the HC-SR04 sensor
   */
-  const int TRIGGER_PIN = A0;
+  const int TRIGGER_PIN = TRIGGER_PIN_NUMBER;
   /**
   * Pinout for the echo pin of the HC-SR04 sensor
   */
-  const int ECHO_PIN = A1;
+  const int ECHO_PIN = ECHO_PIN_NUMBER;
 
 
 public:
@@ -37,7 +37,7 @@ public:
     digitalWrite(TRIGGER_PIN, LOW);
 
     long duration = pulseIn(ECHO_PIN, HIGH);
-    float distance = (duration / 2) / 29.3;
+    float distance = (duration / 2) / SPEED_OF_SOUND; // Using speed of sound as 29.3
     Serial.println(distance);
     return distance;
   }

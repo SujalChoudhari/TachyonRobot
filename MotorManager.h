@@ -1,5 +1,6 @@
 #pragma once
 #include <AFMotor.h>
+#include "Constants.h"
 /**
   MotorManager class is used for managing the motors of the robot.
   It uses the Adafruit Motor Shield library for controlling the motors.
@@ -15,7 +16,10 @@ private:
 public:
   // Initialise the Motors (AF_DCMotors)
   MotorManager()
-    : mFrontLeft(1), mFrontRight(2), mRearLeft(3), mRearRight(4) {
+    : mFrontLeft(MOTOR_FRONT_LEFT),
+      mFrontRight(MOTOR_FRONT_RIGHT),
+      mRearLeft(MOTOR_REAR_LEFT),
+      mRearRight(MOTOR_REAR_RIGHT) {
     mSpeed = 255;
   }
 
@@ -30,6 +34,7 @@ public:
     mFrontRight.setSpeed(mSpeed);
     mRearLeft.setSpeed(mSpeed);
     mRearRight.setSpeed(mSpeed);
+    Stop();
   }
   /**
     Move the Robot
