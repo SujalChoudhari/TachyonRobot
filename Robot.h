@@ -68,7 +68,7 @@ private:
     else if (direction == STATE_RIGHT) angle = RELATIVE_RIGHT_ANGLE;
     mServoManager.RotateTowards(angle);
     
-    if(angle > 70) delay(500);
+    if(angle != 90) delay(500);
 
     int distance = mDetectionManager.GetDistance();
     if (direction == STATE_FRONT && distance > SAFE_DISTANCE_FRONT) return true;
@@ -93,7 +93,7 @@ private:
   void handleLeft() {
     if (isSafeToMove(STATE_LEFT)) {
       mMotorManager.MoveLeft();
-      delay(2000);
+      delay(500);
       mCurrentState = STATE_FRONT;
     } else {
       mCurrentState = STATE_STOP;
@@ -102,7 +102,7 @@ private:
   void handleRight() {
     if (isSafeToMove(STATE_RIGHT)) {
       mMotorManager.MoveRight();
-      delay(2000);
+      delay(500);
       mCurrentState = STATE_FRONT;
     } else {
       mCurrentState = STATE_STOP;
@@ -111,5 +111,6 @@ private:
 
   void handleStop() {
     mMotorManager.Stop();
+    mServoManager.RotateTowards(RELATIVE_FRONT_ANGLE);
   }
 };

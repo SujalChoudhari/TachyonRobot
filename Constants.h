@@ -2,9 +2,9 @@
 /**
 * Safe distance for the front, right and left side of the robot
 */
-#define SAFE_DISTANCE_FRONT 10
-#define SAFE_DISTANCE_RIGHT 15
-#define SAFE_DISTANCE_LEFT 15
+#define SAFE_DISTANCE_FRONT 22
+#define SAFE_DISTANCE_RIGHT 22
+#define SAFE_DISTANCE_LEFT 22
 
 /**
 * Motor pinout for the robot
@@ -33,6 +33,6 @@
 
 #define SPEED_OF_SOUND 29.3
 #define COMMUNICATION_BAUD_RATE 9600
-#define TRIGGER_PIN_NUMBER A0
-#define ECHO_PIN_NUMBER A1
+#define TRIGGER_PIN_NUMBER A1
+#define ECHO_PIN_NUMBER A0
 #define SERVO_PIN_NUMBER 10
